@@ -1,17 +1,11 @@
 # EXPERIMENT-02-Interfacing-Multiple-Switches-for-LED-Control-Using-MicroPython
 
-
- 
-## NAME:
-
-## DEPARTMENT:
-
-## ROLL NO:
-
-## DATE OF EXPERIMENT:
+### NAME:YUVARANI T
+### DEPARTMENT:CSE(IOT)
+### ROLL NO:212222110057
+### DATE OF EXPERIMENT:
 
 ## AIM
-
 To interface multiple switches with the Raspberry Pi Pico and control LEDs using MicroPython.
 
 ## APPARATUS REQUIRED
@@ -32,8 +26,6 @@ USB Cable
 
 ## THEORY
 
-
-
 FIGURE-01: RASPBERRY PI PICO PINOUT DIAGRAM
 
 Raspberry Pi Pico is a microcontroller board based on the RP2040 chip. It supports MicroPython, making it suitable for IoT and embedded applications. The Raspberry Pi Pico is a compact microcontroller board featuring a 40-pin layout, including power, ground, GPIO, and communication interface pins. It operates with a dual-core ARM Cortex-M0+ processor and supports MicroPython and C/C++ programming.
@@ -51,6 +43,7 @@ The LEDs are connected as outputs.
 A MicroPython script reads the switch states and controls the LEDs accordingly.
 
 ### CIRCUIT DIAGRAM
+ 
  ![image](https://github.com/user-attachments/assets/1c7234b9-5041-4156-94b8-0b846adb6b8e)
     Figure-01 circuit diagram of digital input interface 
 
@@ -64,27 +57,62 @@ Connect LED 2 to GP17 via a 330Ω resistor.
 Connect the other terminals of the switches to GND.
 
 ## PROGRAM (MicroPython)
-''''
+```
+from machine import Pin
+from time import sleep
 
+switch1 = Pin(2,Pin.IN)
+switch2 = Pin(3,Pin.IN)
 
+led1 = Pin(15,Pin.OUT)
+led2 = Pin(16,Pin.OUT)
+while True:
+    sw1_state = switch1.value()
+    sw2_state = switch2.value()
 
- 
+    print("Switch 1 State:",sw1_state)
+    print("Switch 2 State:",sw2_state)
+    led1.value(0)
 
+    if sw1_state==1 and sw2_state==1:
+        led1.value(0)
+        led2.value(0)
+
+    elif sw1_state==1:
+        led1.value(1)
+        sleep(0.5)
+        led1.value(0)
+        led2.value(0)
+
+    elif sw2_state==1:
+        led1.value(0)
+        led2.value(1)
+        sleep(0.5)
+        led2.value(0)
+
+    sleep(0.5)
+```
 ## OUTPUT
 
+### CIRCUIT CONNECTION:
 
+![image](https://github.com/user-attachments/assets/baeeb437-eeec-460f-ae38-0d45ae9b7eb6)
 
-FIGURE-02: CIRCUIT CONNECTION
+### SWITCH 1 ON:
 
-FIGURE-03: CODE EXECUTION OUTPUT
+![image](https://github.com/user-attachments/assets/105652c0-c204-4bdc-bcc0-c6684cf3fc24)
 
-FIGURE-04: LED STATUS BASED ON SWITCH INPUTS
-## TIMING DIGAGRAM 
+### SWITCH 2 ON:
 
+![image](https://github.com/user-attachments/assets/57c5772f-d39d-4b1c-8b77-5cddc0f2f611)
 
-UPLOAD YOUR TIMING DIGARAM HERE 
+### BOTH SWITCH ON:
 
+![image](https://github.com/user-attachments/assets/4e680f6d-8c08-446e-b6ad-cca91f4d0d9c)
 
+### TIMING DIGAGRAM:
+
+![image](https://github.com/user-attachments/assets/a36cfd27-7de7-411b-bd98-4fff64753c20)
 
 ## RESULTS
 
